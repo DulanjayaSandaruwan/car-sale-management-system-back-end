@@ -20,4 +20,20 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/sign-in", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(422).send({ error: "must provide email or password" });
+  }
+  const users = await Users.findOne({ email });
+  if (!users) {
+    return res.status(422).send({ error: "must provide email or password" });
+  }
+  try {
+    await users.comparePassword(password);
+  } catch (err) {
+    return res.status(422).send({ error: "must provide email or password" });
+  }
+});
+
 module.exports = router;
