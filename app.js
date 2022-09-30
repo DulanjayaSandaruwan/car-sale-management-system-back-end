@@ -1,13 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const router = require("./routes/Users");
+const users = require("./routes/Users");
+const car = require("./routes/Car");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-app.use("/users", router);
+app.use(cors());
+
+app.use(express.json());
+app.use("/users", users);
+app.use("/car", car);
 
 const port = 3000;
 

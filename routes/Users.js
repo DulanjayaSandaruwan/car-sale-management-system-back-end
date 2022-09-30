@@ -15,8 +15,10 @@ router.post("/register", async (req, res) => {
     });
     const response = await users.save();
     res.json(response);
+    console.log(req.body);
   } catch (error) {
     res.status(422).send(error.message);
+    console.log(req.body);
   }
 });
 
