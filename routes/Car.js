@@ -42,29 +42,42 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/regNo", async (req, res) => {
+router.put("/", async (req, resp) => {
   try {
-    const car = await Car.findById(req.params.id);
-    (car.image = req.body.image),
-      (car.regNo = req.body.regNo),
-      (car.brand = req.body.brand),
-      (car.price = req.body.price),
-      (car.transmissionType = req.body.transmissionType);
+    let res = await Car.find();
+    let obj = undefined;
+    let response = undefined;
+    res.forEach(async (e) => {
+      if (e.regNo === req.query.regNo) {
+        obj = e;
+        obj.image = req.body.image;
+        obj.brand = req.body.brand;
+        obj.price = req.body.price;
+        obj.fuelType = req.body.fuelType;
+        obj.transmissionType = req.body.transmissionType;
 
-    const response = await car.save();
-    res.json(response);
+        console.log("Obj = ", obj);
+        response = e.save(obj);
+      }
+    });
+    resp.json(await response);
   } catch (err) {
-    res.send("Err:" + err);
+    resp.json({ "message : ": err });
   }
 });
 
-router.delete("/regNo", async (req, res) => {
+router.delete("/", async (req, resp) => {
   try {
-    const car = await Car.findById(req.params.id);
-    const response = await car.remove();
-    res.json(response);
+    let arr = await Car.find();
+    let response = undefined;
+    arr.forEach(async (e) => {
+      if (e.regNo === req.query.regNo) {
+        response = await e.remove();
+      }
+    });
+    resp.json(response);
   } catch (err) {
-    res.send("Err:" + err);
+    resp.json({ "message : ": err });
   }
 });
 
