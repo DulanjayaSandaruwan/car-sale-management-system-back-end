@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:regNo", async (req, res) => {
+router.put("/regNo", async (req, res) => {
   try {
     const car = await Car.findById(req.params.id);
     (car.image = req.body.image),
@@ -58,7 +58,7 @@ router.put("/:regNo", async (req, res) => {
   }
 });
 
-router.delete("/:regNo", async (req, res) => {
+router.delete("/regNo", async (req, res) => {
   try {
     const car = await Car.findById(req.params.id);
     const response = await car.remove();
