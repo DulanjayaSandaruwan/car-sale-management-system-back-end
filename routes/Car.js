@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:regNo", async (req, res) => {
   try {
     const car = await Car.findById(req.params.id);
     res.json(car);
@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/addCar", async (req, res) => {
+router.post("/", async (req, res) => {
   const car = new Car({
     image: req.body.image,
     regNo: req.body.regNo,
@@ -33,8 +33,8 @@ router.post("/addCar", async (req, res) => {
     transmissionType: req.body.transmissionType,
   });
   try {
+    console.log(req.body.image);
     const response = await car.save();
-    // res.send(response)
     res.json(response);
     console.log(req.body);
   } catch (err) {
@@ -42,7 +42,7 @@ router.post("/addCar", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:regNo", async (req, res) => {
   try {
     const car = await Car.findById(req.params.id);
     (car.image = req.body.image),
@@ -58,7 +58,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:regNo", async (req, res) => {
   try {
     const car = await Car.findById(req.params.id);
     const response = await car.remove();
