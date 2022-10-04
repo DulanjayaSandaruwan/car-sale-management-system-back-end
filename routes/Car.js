@@ -32,14 +32,14 @@ router.get("/search", async (req, resp) => {
   }
 });
 
-router.get("/:regNo", async (req, res) => {
-  try {
-    const car = await Car.findById(req.params.id);
-    res.json(car);
-  } catch (err) {
-    res.send("Err:" + err);
-  }
-});
+// router.get("/:regNo", async (req, res) => {
+//   try {
+//     const car = await Car.findById(req.params.id);
+//     res.json(car);
+//   } catch (err) {
+//     res.send("Err:" + err);
+//   }
+// });
 
 router.post("/", async (req, res) => {
   const car = new Car({
