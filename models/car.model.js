@@ -22,10 +22,14 @@ const carSchema = new Schema({
     type: String,
     required: true
   },
-  transmissionType: {
+  date: {
     type: String,
     required: true
   },
+  location: {
+    type: String,
+    required: true
+  }
 })
 
 module.exports = mongoose.model("Car", carSchema);

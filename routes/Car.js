@@ -14,6 +14,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/search", async (req, resp) => {
+  try {
+    console.log("location = " + req.query.location);
+    let res = await Car.find();
+    let temp = [];
+    res.forEach(async (e) => {
+      if ((e.date === req.query.date) | (e.location === req.query.location)) {
+        console.log(e);
+        temp.push(e);
+      }
+    });
+    console.log("temp = " + temp);
+    resp.json(temp);
+  } catch (err) {
+    resp.json({ message: err });
+  }
+});
+
 router.get("/:regNo", async (req, res) => {
   try {
     const car = await Car.findById(req.params.id);
@@ -30,7 +48,8 @@ router.post("/", async (req, res) => {
     brand: req.body.brand,
     price: req.body.price,
     fuelType: req.body.fuelType,
-    transmissionType: req.body.transmissionType,
+    date: req.body.date,
+    location: req.body.date,
   });
   try {
     console.log(req.body.image);
@@ -54,7 +73,8 @@ router.put("/", async (req, resp) => {
         obj.brand = req.body.brand;
         obj.price = req.body.price;
         obj.fuelType = req.body.fuelType;
-        obj.transmissionType = req.body.transmissionType;
+        obj.date = req.body.date;
+        obj.location = req.body.location;
 
         console.log("Obj = ", obj);
         response = e.save(obj);
